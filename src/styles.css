@@ -52,3 +52,11 @@ label {
 .espaco-icones-left {
   margin-left: .25em!important;
 }
+
+a {
+  text-decoration: none;
+}
+
+a:hover, a:focus {
+  text-decoration: underline;
+}
