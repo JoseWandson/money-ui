@@ -1,3 +1,4 @@
+import { Constants } from './../shared/Constants';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LancamentoCadastroComponent implements OnInit {
 
-  constructor() { }
+  pt: any;
 
   ngOnInit(): void {
+    this.pt = Constants.pt;
   }
 
 }
