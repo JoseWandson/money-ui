@@ -1,4 +1,4 @@
-import { Constants } from './../shared/Constants';
+import { Constants } from './../../shared/Constants';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
