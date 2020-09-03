@@ -7,18 +7,18 @@
 
       <div class="p-col-12 ui-fluid">
         <label>Descrição</label>
-        <input pInputText type="text" name="descricao" [(ngModel)]="descricao">
+        <input pInputText type="text" name="descricao" [(ngModel)]="filtro.descricao">
       </div>
 
       <div class="p-col-12">
         <label style="display: block;">Vencimento</label>
         <p-calendar dateFormat="dd/mm/yy" [inputStyle]="{width: '95px'}" name="vencimentoInicio"
-          [(ngModel)]="dataVencimentoInicio" [locale]="pt" [monthNavigator]="true" [yearNavigator]="true"
+          [(ngModel)]="filtro.dataVencimentoInicio" [locale]="pt" [monthNavigator]="true" [yearNavigator]="true"
           yearRange="2000:2030"></p-calendar>
 
         <label class="espaco-left espaco-right">até</label>
         <p-calendar dateFormat="dd/mm/yy" [inputStyle]="{width: '95px'}" name="vencimentoFim"
-          [(ngModel)]="dataVencimentoFim" [locale]="pt" [monthNavigator]="true" [yearNavigator]="true"
+          [(ngModel)]="filtro.dataVencimentoFim" [locale]="pt" [monthNavigator]="true" [yearNavigator]="true"
           yearRange="2000:2030"></p-calendar>
       </div>
 

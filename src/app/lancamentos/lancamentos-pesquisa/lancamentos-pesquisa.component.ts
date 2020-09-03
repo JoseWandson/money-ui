@@ -10,10 +10,8 @@ import { Constants } from 'src/app/shared/Constants';
 })
 export class LancamentosPesquisaComponent implements OnInit {
 
+  filtro = new LancamentoFiltro();
   lancamentos = [];
-  descricao: string;
-  dataVencimentoInicio: Date;
-  dataVencimentoFim: Date;
   pt: any;
 
   constructor(private lancamentoService: LancamentoService) { }
@@ -24,14 +22,8 @@ export class LancamentosPesquisaComponent implements OnInit {
   }
 
   pesquisar() {
-    const filtro: LancamentoFiltro = {
-      descricao: this.descricao,
-      dataVencimentoInicio: this.dataVencimentoInicio,
-      dataVencimentoFim: this.dataVencimentoFim
-    };
-
-    this.lancamentoService.pesquisar(filtro)
-      .then(lancamentos => this.lancamentos = lancamentos);
+    this.lancamentoService.pesquisar(this.filtro)
+      .then(resultado => this.lancamentos = resultado.lancamentos);
   }
 
 }
