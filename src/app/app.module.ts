@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LancamentosModule } from './lancamentos/lancamentos.module';
 import { LancamentoService } from './lancamentos/lancamento.service';
 import { PessoasModule } from './pessoas/pessoas.module';
+import { PessoaService } from './pessoas/pessoa.service';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 
@@ -22,7 +23,9 @@ import { CoreModule } from './core/core.module';
     PessoasModule,
     CoreModule
   ],
-  providers: [LancamentoService],
+  providers: [
+    LancamentoService, PessoaService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
