@@ -1,5 +1,8 @@
-import { Constants } from './../../shared/Constants';
 import { Component, OnInit } from '@angular/core';
+
+import { Constants } from './../../shared/Constants';
+import { CategoriaService } from 'src/app/categorias/categoria.service';
+import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -15,10 +18,7 @@ export class LancamentoCadastroComponent implements OnInit {
     { label: 'Despesa', value: 'DESPESA' }
   ];
 
-  categorias = [
-    { label: 'Alimentação', value: 1 },
-    { label: 'Transporte', value: 2 },
-  ];
+  categorias = [];
 
   pessoas = [
     { label: 'João da Silva', value: 4 },
@@ -26,8 +26,20 @@ export class LancamentoCadastroComponent implements OnInit {
     { label: 'Maria Abadia', value: 3 },
   ];
 
+  constructor(
+    private categoriaService: CategoriaService,
+    private errorHandler: ErrorHandlerService
+  ) { }
+
   ngOnInit(): void {
     this.pt = Constants.pt;
+    this.carregarCategorias();
+  }
+
+  carregarCategorias() {
+    return this.categoriaService.listarTodas()
+      .then(categorias => this.categorias = categorias.map(c => ({ label: c.nome, value: c.codigo })))
+      .catch(erro => this.errorHandler.handle(erro));
   }
 
 }
