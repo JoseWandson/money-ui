@@ -41,7 +41,8 @@
 
       <div class="p-col-12 p-md-6 ui-fluid">
         <label>Pessoa</label>
-        <p-dropdown [options]="pessoas" placeholder="Selecione" [filter]=true name="pessoa" ngModel required>
+        <p-dropdown [options]="pessoas" placeholder="Selecione" [filter]=true name="pessoa" ngModel required
+          emptyFilterMessage="Nenhum resultado encontrado">
         </p-dropdown>
       </div>
 
