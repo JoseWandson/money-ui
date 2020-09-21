@@ -11,7 +11,7 @@
 
       <div class="p-col-6 p-md-3 ui-fluid">
         <label>Vencimento</label>
-        <p-calendar dateFormat="dd/mm/yy" [locale]="pt" name="vencimento" ngModel #vencimento="ngModel" required
+        <p-calendar dateFormat="dd/mm/yy" [locale]="pt" name="vencimento" #vencimento="ngModel" required
           [(ngModel)]="lancamento.dataVencimento">
         </p-calendar>
         <app-message [control]="vencimento" error="required" text="Informe uma data de vencimento"></app-message>
@@ -25,7 +25,7 @@
 
       <div class="p-col-12 p-md-9 ui-fluid">
         <label>Descrição</label>
-        <input pInputText type="text" name="descricao" ngModel #descricao="ngModel" required minlength="5"
+        <input pInputText type="text" name="descricao" #descricao="ngModel" required minlength="5"
           [(ngModel)]="lancamento.descricao">
         <app-message [control]="descricao" error="required" text="Informe uma descrição"></app-message>
         <app-message [control]="descricao" error="minlength"
@@ -34,19 +34,19 @@
 
       <div class="p-col-12 p-md-3 ui-fluid">
         <label>Valor</label>
-        <p-inputNumber mode="currency" currency="BRL" name="valor" ngModel required [min]="0"
-          [(ngModel)]="lancamento.valor"></p-inputNumber>
+        <p-inputNumber mode="currency" currency="BRL" name="valor" required [min]="0" [(ngModel)]="lancamento.valor">
+        </p-inputNumber>
       </div>
 
       <div class="p-col-12 p-md-6 ui-fluid">
         <label>Categoria</label>
-        <p-dropdown [options]="categorias" placeholder="Selecione" name="categoria" ngModel required
+        <p-dropdown [options]="categorias" placeholder="Selecione" name="categoria" required
           [(ngModel)]="lancamento.categoria.codigo"></p-dropdown>
       </div>
 
       <div class="p-col-12 p-md-6 ui-fluid">
         <label>Pessoa</label>
-        <p-dropdown [options]="pessoas" placeholder="Selecione" [filter]=true name="pessoa" ngModel required
+        <p-dropdown [options]="pessoas" placeholder="Selecione" [filter]=true name="pessoa" required
           emptyFilterMessage="Nenhum resultado encontrado" [(ngModel)]="lancamento.pessoa.codigo">
         </p-dropdown>
       </div>
