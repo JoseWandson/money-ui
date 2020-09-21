@@ -65,3 +65,8 @@ a:hover, a:focus {
 body .ui-message.ui-message-error {
   margin-top: 4px;
 }
+
+body a:hover.ui-button {
+  color: #ffffff;
+  background-color: #116fbf;
+}

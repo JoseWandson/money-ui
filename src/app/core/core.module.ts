@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
@@ -18,6 +19,7 @@ registerLocaleData(localePt);
   declarations: [NavbarComponent],
   imports: [
     CommonModule,
+    RouterModule,
 
     ToastModule
   ],
