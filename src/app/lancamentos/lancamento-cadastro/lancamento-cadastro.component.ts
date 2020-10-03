@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 import { MessageService } from 'primeng/api';
 
@@ -33,10 +34,13 @@ export class LancamentoCadastroComponent implements OnInit {
     private pessoaService: PessoaService,
     private lancamentoService: LancamentoService,
     private errorHandler: ErrorHandlerService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    console.log(this.route.snapshot.params.codigo);
+
     this.pt = Constants.pt;
     this.carregarCategorias();
     this.carregarPessoas();

@@ -53,7 +53,8 @@
               {{lancamento.valor | currency:'BRL'}}
             </td>
             <td class="col-acoes">
-              <a pButton class="espaco-right" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
+              <a pButton class="espaco-right" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"
+                [routerLink]="['/lancamentos', lancamento.codigo]"></a>
               <button pButton class="espaco-left" icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"
                 (click)="confirmarExclusao(lancamento)"></button>
             </td>
