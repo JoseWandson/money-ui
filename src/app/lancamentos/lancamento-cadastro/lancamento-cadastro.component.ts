@@ -39,7 +39,10 @@ export class LancamentoCadastroComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.route.snapshot.params.codigo);
+    const codigoLancamento = this.route.snapshot.params.codigo;
+    if (codigoLancamento) {
+      this.carregarLancamento(codigoLancamento);
+    }
 
     this.pt = Constants.pt;
     this.carregarCategorias();
@@ -57,6 +60,10 @@ export class LancamentoCadastroComponent implements OnInit {
       .catch(erro => this.errorHandler.handle(erro));
   }
 
+  get editando() {
+    return Boolean(this.lancamento.codigo);
+  }
+
   private carregarCategorias() {
     return this.categoriaService.listarTodas()
       .then(categorias => this.categorias = categorias.map(c => ({ label: c.nome, value: c.codigo })))
@@ -66,6 +73,12 @@ export class LancamentoCadastroComponent implements OnInit {
   private carregarPessoas() {
     return this.pessoaService.listarTodas()
       .then(pessoas => this.pessoas = pessoas.map(p => ({ label: p.nome, value: p.codigo })))
+      .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  private carregarLancamento(codigo: number) {
+    this.lancamentoService.buscarPorCodigo(codigo)
+      .then(lancamento => this.lancamento = lancamento)
       .catch(erro => this.errorHandler.handle(erro));
   }
 
