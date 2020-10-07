@@ -73,7 +73,10 @@ export class LancamentoService {
       .append('Authorization', 'Basic YWRtaW5AbW9uZXkuY29tOmFkbWlu')
       .append('Content-Type', 'application/json');
 
-    return this.http.put(`${this.lancamentosUrl}/${lancamento.codigo}`, lancamento, { headers })
+    const codigo = lancamento.codigo;
+    delete lancamento.codigo;
+
+    return this.http.put(`${this.lancamentosUrl}/${codigo}`, lancamento, { headers })
       .toPromise()
       .then(response => {
         const lancamentoAlterado = response as Lancamento;
