@@ -58,7 +58,8 @@
 
       <div class="p-col-12">
         <button pButton type="submit" label="Salvar" class="espaco-right" [disabled]="f.invalid"></button>
-        <button pButton type="button" label="Novo" class="ui-button-info espaco-left espaco-right"></button>
+        <button pButton type="button" label="Novo" class="ui-button-info espaco-left espaco-right"
+          (click)="novo(f)"></button>
         <a routerLink="/lancamentos" class="espaco-left">Voltar para a pesquisa</a>
       </div>
     </div>
