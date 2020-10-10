@@ -28,10 +28,6 @@ import { SharedModule } from '../shared/shared.module';
     InputMaskModule,
 
     SharedModule
-  ],
-  exports: [
-    PessoasPesquisaComponent,
-    PessoaCadastroComponent
   ]
 })
 export class PessoasModule { }

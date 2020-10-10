@@ -38,10 +38,6 @@ import { SharedModule } from '../shared/shared.module';
     InputNumberModule,
 
     SharedModule
-  ],
-  exports: [
-    LancamentoCadastroComponent,
-    LancamentosPesquisaComponent
   ]
 })
 export class LancamentosModule { }
