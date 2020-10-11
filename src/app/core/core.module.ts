@@ -2,6 +2,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { Title } from '@angular/platform-browser';
 
 import { ToastModule } from 'primeng/toast';
 import { MessageService, ConfirmationService } from 'primeng/api';
@@ -31,6 +32,8 @@ registerLocaleData(localePt);
     ConfirmDialogModule
   ],
   providers: [
+    Title,
+
     ErrorHandlerService,
     LancamentoService,
     PessoaService,
