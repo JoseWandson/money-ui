@@ -1,8 +1,8 @@
 <div class="container">
-  <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar(f)">
+  <form #f="ngForm" autocomplete="off" (ngSubmit)="salvar()">
     <div class="p-grid">
       <div class="p-col-12">
-        <h1>Nova Pessoa</h1>
+        <h1>{{editando ? 'Edição de' : 'Nova'}} Pessoa</h1>
       </div>
 
       <div class="p-col-12 ui-fluid">
@@ -58,8 +58,9 @@
 
       <div class="p-col-12">
         <button pButton type="submit" label="Salvar" class="espaco-right" [disabled]="f.invalid"></button>
-        <button pButton type="button" label="Novo" class="ui-button-info espaco-left espaco-right"></button>
-        <a href="javascript:;" class="espaco-left">Voltar para a pesquisa</a>
+        <button pButton type="button" label="Nova" class="ui-button-info espaco-left espaco-right"
+          (click)="nova(f)"></button>
+        <a routerLink="/pessoas" class="espaco-left">Voltar para a pesquisa</a>
       </div>
     </div>
   </form>

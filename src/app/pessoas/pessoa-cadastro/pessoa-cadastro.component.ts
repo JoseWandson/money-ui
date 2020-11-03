@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { MessageService } from 'primeng/api';
 
@@ -12,23 +14,78 @@ import { Pessoa } from './../../core/model';
   templateUrl: './pessoa-cadastro.component.html',
   styleUrls: ['./pessoa-cadastro.component.css']
 })
-export class PessoaCadastroComponent {
+export class PessoaCadastroComponent implements OnInit {
 
   pessoa = new Pessoa();
 
   constructor(
     private pessoaService: PessoaService,
     private messageService: MessageService,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
+    private title: Title,
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
+  ngOnInit(): void {
+    this.title.setTitle('Nova pessoa');
+
+    const codigoPessoa = this.route.snapshot.params.codigo;
+    if (codigoPessoa) {
+      this.carregarPessoa(codigoPessoa);
+    }
+  }
+
   salvar(form: NgForm) {
+    if (this.editando) {
+      this.atualizarPessoa();
+    } else {
+      this.adicionarPessoa();
+    }
+  }
+
+  nova(form: NgForm) {
+    form.reset();
+
+    setTimeout(() => this.pessoa = new Pessoa(), 1);
+
+    this.router.navigate(['/pessoas/nova']);
+  }
+
+  get editando() {
+    return Boolean(this.pessoa.codigo);
+  }
+
+  private carregarPessoa(codigo: number) {
+    this.pessoaService.buscarPorCodigo(codigo)
+      .then(pessoa => {
+        this.pessoa = pessoa;
+        this.atualizarTituloEdicao();
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  private atualizarTituloEdicao() {
+    this.title.setTitle(`Edição de pessoa: ${this.pessoa.nome}`);
+  }
+
+  private adicionarPessoa() {
     this.pessoaService.adicionar(this.pessoa)
-      .then(() => {
+      .then(pessoaAdicionada => {
         this.messageService.add({ severity: 'success', detail: 'Pessoa adicionada com sucesso!' });
 
-        form.reset();
-        this.pessoa = new Pessoa();
+        this.router.navigate(['/pessoas', pessoaAdicionada.codigo]);
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  private atualizarPessoa() {
+    this.pessoaService.atualizar(this.pessoa)
+      .then(pessoa => {
+        this.pessoa = pessoa;
+
+        this.messageService.add({ severity: 'success', detail: 'Pessoa alterada com sucesso!' });
+        this.atualizarTituloEdicao();
       })
       .catch(erro => this.errorHandler.handle(erro));
   }
