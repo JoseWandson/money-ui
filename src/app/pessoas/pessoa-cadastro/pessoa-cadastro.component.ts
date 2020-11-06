@@ -36,7 +36,7 @@ export class PessoaCadastroComponent implements OnInit {
     }
   }
 
-  salvar(form: NgForm) {
+  salvar() {
     if (this.editando) {
       this.atualizarPessoa();
     } else {
