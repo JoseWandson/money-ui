@@ -34,16 +34,16 @@ registerLocaleData(localePt);
   ],
   providers: [
     Title,
+    { provide: LOCALE_ID, useValue: 'pt_BR' },
+
+    MessageService,
+    ConfirmationService,
 
     ErrorHandlerService,
     LancamentoService,
     PessoaService,
     CategoriaService,
-    AuthService,
-
-    MessageService,
-    ConfirmationService,
-    { provide: LOCALE_ID, useValue: 'pt_BR' }
+    AuthService
   ]
 })
 export class CoreModule { }
