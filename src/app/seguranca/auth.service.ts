@@ -1,5 +1,4 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ConstantPool } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
