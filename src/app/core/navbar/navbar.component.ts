@@ -9,8 +9,12 @@ import { AuthService } from 'src/app/seguranca/auth.service';
 })
 export class NavbarComponent {
 
-  constructor(private auth: AuthService) { }
+  constructor(public auth: AuthService) { }
 
   exibindoMenu = false;
+
+  criarNovoAccessToken() {
+    this.auth.obterNovoAccessToken();
+  }
 
 }
