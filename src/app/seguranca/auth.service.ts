@@ -64,6 +64,15 @@ export class AuthService {
     return !token || this.jwtHelper.isTokenExpired(token);
   }
 
+  temQualquerPermissao(roles: string[]) {
+    for (const role of roles) {
+      if (this.temPermissao(role)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   private armazenarToken(token: string) {
     this.jwtPayload = this.jwtHelper.decodeToken(token);
     localStorage.setItem('token', token);
