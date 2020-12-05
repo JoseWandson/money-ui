@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 import { AuthService } from '../auth.service';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
@@ -9,13 +10,18 @@ import { ErrorHandlerService } from 'src/app/core/error-handler.service';
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.css']
 })
-export class LoginFormComponent {
+export class LoginFormComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
     private errorHandler: ErrorHandlerService,
-    private router: Router
+    private router: Router,
+    private title: Title
   ) { }
+
+  ngOnInit(): void {
+    this.title.setTitle('Login');
+  }
 
   login(usuario: string, senha: string) {
     this.auth.login(usuario, senha)

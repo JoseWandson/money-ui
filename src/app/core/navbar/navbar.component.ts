@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/seguranca/auth.service';
+import { ErrorHandlerService } from '../error-handler.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,8 +11,18 @@ import { AuthService } from 'src/app/seguranca/auth.service';
 })
 export class NavbarComponent {
 
-  constructor(public auth: AuthService) { }
-
   exibindoMenu = false;
+
+  constructor(
+    public auth: AuthService,
+    private errorHandler: ErrorHandlerService,
+    private router: Router
+  ) { }
+
+  logout() {
+    this.auth.logout()
+      .then(() => this.router.navigate(['/login']))
+      .catch(erro => this.errorHandler.handle(erro));
+  }
 
 }
