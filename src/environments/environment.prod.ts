@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://money-api.herokuapp.com',
+  apiUrl: 'https://wandsonmoney-api.herokuapp.com',
 
-  tokenAllowedDomains: [new RegExp('money-api.herokuapp.com')],
+  tokenAllowedDomains: [new RegExp('wandsonmoney-api.herokuapp.com')],
   tokenDisallowedRoutes: [new RegExp('\/oauth\/token')]
 };
