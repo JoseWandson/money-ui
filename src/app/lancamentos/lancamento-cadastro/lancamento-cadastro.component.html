@@ -9,21 +9,21 @@
         <p-selectButton [options]="tipos" #tipo name="tipo" [(ngModel)]="lancamento.tipo"></p-selectButton>
       </div>
 
-      <div class="p-col-6 p-md-3 ui-fluid">
+      <div class="p-col-6 p-md-3 p-fluid">
         <label>Vencimento</label>
-        <p-calendar dateFormat="dd/mm/yy" [locale]="pt" name="vencimento" #vencimento="ngModel" required
+        <p-calendar dateFormat="dd/mm/yy" name="vencimento" #vencimento="ngModel" required
           [(ngModel)]="lancamento.dataVencimento">
         </p-calendar>
         <app-message [control]="vencimento" error="required" text="Informe uma data de vencimento"></app-message>
       </div>
 
-      <div class="p-col-6 p-md-3 ui-fluid">
+      <div class="p-col-6 p-md-3 p-fluid">
         <label>{{ tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
-        <p-calendar dateFormat="dd/mm/yy" [locale]="pt" [(ngModel)]="lancamento.dataPagamento" name="dataPagamento">
+        <p-calendar dateFormat="dd/mm/yy" [(ngModel)]="lancamento.dataPagamento" name="dataPagamento">
         </p-calendar>
       </div>
 
-      <div class="p-col-12 p-md-9 ui-fluid">
+      <div class="p-col-12 p-md-9 p-fluid">
         <label>Descrição</label>
         <input pInputText type="text" name="descricao" #descricao="ngModel" required minlength="5"
           [(ngModel)]="lancamento.descricao">
@@ -32,35 +32,35 @@
           text="Mínimo de {{ descricao.errors?.minlength?.requiredLength }} caracteres"></app-message>
       </div>
 
-      <div class="p-col-12 p-md-3 ui-fluid">
+      <div class="p-col-12 p-md-3 p-fluid">
         <label>Valor</label>
         <p-inputNumber mode="currency" currency="BRL" name="valor" required [min]="0" [(ngModel)]="lancamento.valor">
         </p-inputNumber>
       </div>
 
-      <div class="p-col-12 p-md-6 ui-fluid">
+      <div class="p-col-12 p-md-6 p-fluid">
         <label>Categoria</label>
         <p-dropdown [options]="categorias" placeholder="Selecione" name="categoria" required
           [(ngModel)]="lancamento.categoria.codigo"></p-dropdown>
       </div>
 
-      <div class="p-col-12 p-md-6 ui-fluid">
+      <div class="p-col-12 p-md-6 p-fluid">
         <label>Pessoa</label>
         <p-dropdown [options]="pessoas" placeholder="Selecione" [filter]=true name="pessoa" required
           emptyFilterMessage="Nenhum resultado encontrado" [(ngModel)]="lancamento.pessoa.codigo">
         </p-dropdown>
       </div>
 
-      <div class="p-col-12 ui-fluid">
+      <div class="p-col-12 p-fluid">
         <label>Observação</label>
         <textarea pInputTextarea rows="3" [(ngModel)]="lancamento.observacao" name="observacao"></textarea>
       </div>
 
       <div class="p-col-12">
-        <button pButton type="submit" label="Salvar" class="espaco-right" [disabled]="f.invalid"></button>
-        <button pButton type="button" label="Novo" class="ui-button-info espaco-left espaco-right"
+        <button pButton type="submit" label="Salvar" class="p-mr-1" [disabled]="f.invalid"></button>
+        <button pButton type="button" label="Novo" class="p-button-info p-ml-1 p-mr-1"
           (click)="novo(f)"></button>
-        <a routerLink="/lancamentos" class="espaco-left">Voltar para a pesquisa</a>
+        <a routerLink="/lancamentos" class="p-ml-1">Voltar para a pesquisa</a>
       </div>
     </div>
   </form>

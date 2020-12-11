@@ -5,7 +5,6 @@ import { LazyLoadEvent, MessageService, ConfirmationService } from 'primeng/api'
 import { Table } from 'primeng/table';
 
 import { LancamentoService, LancamentoFiltro } from './../lancamento.service';
-import { Constants } from 'src/app/shared/Constants';
 import { ErrorHandlerService } from './../../core/error-handler.service';
 import { AuthService } from 'src/app/seguranca/auth.service';
 
@@ -20,7 +19,6 @@ export class LancamentosPesquisaComponent implements OnInit {
   filtro = new LancamentoFiltro();
   lancamentos = [];
   @ViewChild('tabela', { static: true }) grid: Table;
-  pt: any;
 
   constructor(
     private lancamentoService: LancamentoService,
@@ -32,7 +30,6 @@ export class LancamentosPesquisaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.pt = Constants.pt;
     this.title.setTitle('Pesquisa de lançamentos');
   }
 

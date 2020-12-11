@@ -5,7 +5,6 @@ import { Title } from '@angular/platform-browser';
 
 import { MessageService } from 'primeng/api';
 
-import { Constants } from './../../shared/Constants';
 import { CategoriaService } from 'src/app/categorias/categoria.service';
 import { PessoaService } from './../../pessoas/pessoa.service';
 import { LancamentoService } from '../lancamento.service';
@@ -18,8 +17,6 @@ import { Lancamento } from './../../core/model';
   styleUrls: ['./lancamento-cadastro.component.css']
 })
 export class LancamentoCadastroComponent implements OnInit {
-
-  pt: any;
 
   tipos = [
     { label: 'Receita', value: 'RECEITA' },
@@ -49,7 +46,6 @@ export class LancamentoCadastroComponent implements OnInit {
       this.carregarLancamento(codigoLancamento);
     }
 
-    this.pt = Constants.pt;
     this.carregarCategorias();
     this.carregarPessoas();
   }

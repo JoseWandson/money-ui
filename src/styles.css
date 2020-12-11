@@ -37,20 +37,12 @@ label {
 }
 
 .col-acoes {
-  width: 100px;
+  width: 120px;
   text-align: center;
 }
 
 .col-acoes-header {
-  width: 100px;
-}
-
-.espaco-right {
-  margin-right: .25em!important;
-}
-
-.espaco-left {
-  margin-left: .25em!important;
+  width: 120px;
 }
 
 a {
@@ -62,11 +54,15 @@ a:hover, a:focus {
   text-decoration: underline;
 }
 
-body .ui-message.ui-message-error {
+a:hover.p-button, a:focus.p-button {
+  text-decoration: none;
+}
+
+body .p-inline-message.p-inline-message-error {
   margin-top: 4px;
 }
 
-body a:hover.ui-button {
-  color: #ffffff;
-  background-color: #116fbf;
+body a:hover.p-button {
+  background: #0d89ec;
+  border-color: #0d89ec;
 }

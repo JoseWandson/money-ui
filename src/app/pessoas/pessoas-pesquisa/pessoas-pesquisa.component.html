@@ -5,7 +5,7 @@
         <h1>Pessoas</h1>
       </div>
 
-      <div class="p-col-12 ui-fluid">
+      <div class="p-col-12 p-fluid">
         <label>Nome</label>
         <input pInputText type="text" name="nome" [(ngModel)]="filtro.nome">
       </div>
@@ -19,7 +19,8 @@
   <div class="p-grid">
     <div class="p-col-12">
       <p-table [value]="pessoas" [paginator]="true" [rows]="filtro.itensPorPagina" [lazy]="true"
-        [totalRecords]="totalRegistros" (onLazyLoad)="aoMudarPagina($event)" [responsive]="true" #tabela>
+        [totalRecords]="totalRegistros" (onLazyLoad)="aoMudarPagina($event)" [responsive]="true" #tabela
+        styleClass="p-datatable-gridlines">
         <ng-template pTemplate="header">
           <tr>
             <th>Nome</th>
@@ -42,9 +43,9 @@
               </a>
             </td>
             <td class="col-acoes">
-              <a pButton class="espaco-right" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"
+              <a pButton class="p-mr-1" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"
                 [routerLink]="['/pessoas', pessoa.codigo]"></a>
-              <button pButton class="espaco-left" icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"
+              <button pButton class="p-ml-1" icon="pi pi-trash" pTooltip="Excluir" tooltipPosition="top"
                 (click)="confirmarExclusao(pessoa)"></button>
             </td>
           </tr>
