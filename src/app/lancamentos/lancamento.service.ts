@@ -60,6 +60,8 @@ export class LancamentoService {
   }
 
   adicionar(lancamento: Lancamento): Promise<Lancamento> {
+    delete lancamento.codigo;
+
     return this.http.post<Lancamento>(this.lancamentosUrl, lancamento)
       .toPromise();
   }

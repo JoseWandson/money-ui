@@ -21,7 +21,7 @@ export class PessoaService {
     this.pessoasUrl = `${environment.apiUrl}/pessoas`;
   }
 
-  pesquisar(filtro: PessoaFiltro): Promise<any> {
+  async pesquisar(filtro: PessoaFiltro): Promise<any> {
     let params = new HttpParams();
 
     params = params.set('page', filtro.pagina.toString());
@@ -31,37 +31,31 @@ export class PessoaService {
       params = params.set('nome', filtro.nome);
     }
 
-    return this.http.get(this.pessoasUrl, { params })
-      .toPromise()
-      .then(response => {
-        const pessoas = response['content'];
-        const resultado = {
-          pessoas,
-          total: response['totalElements']
-        };
-        return resultado;
-      });
+    const response = await this.http.get(this.pessoasUrl, { params }).toPromise();
+    const pessoas = response['content'];
+    const resultado = {
+      pessoas,
+      total: response['totalElements']
+    };
+    return resultado;
   }
 
-  listarTodas(): Promise<any> {
-    return this.http.get(this.pessoasUrl)
-      .toPromise()
-      .then(response => response['content']);
+  async listarTodas(): Promise<any> {
+    const response = await this.http.get(this.pessoasUrl).toPromise();
+    return response['content'];
   }
 
-  excluir(codigo: number): Promise<void> {
-    return this.http.delete(`${this.pessoasUrl}/${codigo}`)
-      .toPromise()
-      .then(() => null);
+  async excluir(codigo: number): Promise<void> {
+    await this.http.delete(`${this.pessoasUrl}/${codigo}`).toPromise();
+    return null;
   }
 
-  mudarStatus(codigo: number, ativo: boolean): Promise<void> {
+  async mudarStatus(codigo: number, ativo: boolean): Promise<void> {
     const headers = new HttpHeaders()
       .append('Content-Type', 'application/json');
 
-    return this.http.put(`${this.pessoasUrl}/${codigo}/ativo`, ativo, { headers })
-      .toPromise()
-      .then(() => null);
+    await this.http.put(`${this.pessoasUrl}/${codigo}/ativo`, ativo, { headers }).toPromise();
+    return null;
   }
 
   adicionar(pessoa: Pessoa): Promise<Pessoa> {
