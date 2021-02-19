@@ -1,7 +1,8 @@
-const express = require('express');
+import express, { static } from 'express';
+
 const app = express();
 
-app.use(express.static(__dirname + '/dist/money-ui'));
+app.use(static(__dirname + '/dist/money-ui'));
 
 app.get('/*', function (req, res) {
   res.sendFile(__dirname + '/dist/money-ui/index.html');
