@@ -15,6 +15,7 @@ import { ErrorHandlerService } from './error-handler.service';
 import { LancamentoService } from '../lancamentos/lancamento.service';
 import { PessoaService } from '../pessoas/pessoa.service';
 import { CategoriaService } from './../categorias/categoria.service';
+import { DashboardService } from './../dashboard/dashboard.service';
 import { AuthService } from './../seguranca/auth.service';
 
 registerLocaleData(localePt);
@@ -48,6 +49,7 @@ registerLocaleData(localePt);
     LancamentoService,
     PessoaService,
     CategoriaService,
+    DashboardService,
     AuthService
   ]
 })
