@@ -5,11 +5,14 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './relatorio-lancamentos.component.html',
   styleUrls: ['./relatorio-lancamentos.component.css']
 })
-export class RelatorioLancamentosComponent implements OnInit {
+export class RelatorioLancamentosComponent {
 
-  constructor() { }
+  periodoInicio: Date;
+  periodoFim: Date;
 
-  ngOnInit(): void {
+  gerar() {
+    console.log(this.periodoInicio);
+    console.log(this.periodoFim);
   }
 
 }
