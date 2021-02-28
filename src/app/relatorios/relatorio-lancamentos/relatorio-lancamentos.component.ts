@@ -1,3 +1,4 @@
+import { RelatoriosService } from './../relatorios.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -10,9 +11,14 @@ export class RelatorioLancamentosComponent {
   periodoInicio: Date;
   periodoFim: Date;
 
+  constructor(private relatoriosService: RelatoriosService) { }
+
   gerar() {
-    console.log(this.periodoInicio);
-    console.log(this.periodoFim);
+    this.relatoriosService.relatorioLancamentosPorPessoa(this.periodoInicio, this.periodoFim)
+      .then(relatorio => {
+        const url = window.URL.createObjectURL(relatorio);
+        window.open(url);
+      });
   }
 
 }

@@ -16,6 +16,7 @@ import { LancamentoService } from '../lancamentos/lancamento.service';
 import { PessoaService } from '../pessoas/pessoa.service';
 import { CategoriaService } from './../categorias/categoria.service';
 import { DashboardService } from './../dashboard/dashboard.service';
+import { RelatoriosService } from './../relatorios/relatorios.service';
 import { AuthService } from './../seguranca/auth.service';
 
 registerLocaleData(localePt);
@@ -50,6 +51,7 @@ registerLocaleData(localePt);
     PessoaService,
     CategoriaService,
     DashboardService,
+    RelatoriosService,
     AuthService
   ]
 })
