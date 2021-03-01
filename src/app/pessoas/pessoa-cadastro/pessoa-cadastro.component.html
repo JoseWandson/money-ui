@@ -57,9 +57,49 @@
       </div>
 
       <div class="p-col-12">
+        <p-panel header="Contatos">
+          <div class="p-grid">
+            <div class="p-col-12">
+              <p-table [value]="pessoa.contatos" [responsive]="true" styleClass="p-datatable-gridlines">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Telefone</th>
+                    <th class="col-acoes-header"></th>
+                  </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-contato>
+                  <tr>
+                    <td>{{contato.nome}}</td>
+                    <td>{{contato.email}}</td>
+                    <td>{{contato.telefone}}</td>
+                    <td class="col-acoes">
+                      <button pButton icon="pi pi-pencil" type="button" pTooltip="Editar" tooltipPosition="top"
+                        class="p-mr-1"></button>
+                      <button pButton icon="pi pi-trash" type="button" pTooltip="Excluir" tooltipPosition="top"
+                        class="p-ml-1"></button>
+                    </td>
+                  </tr>
+                </ng-template>
+
+                <ng-template pTemplate="emptymessage">
+                  <tr>
+                    <td colspan="4">
+                      Nenhum contato cadastrado
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </p-panel>
+      </div>
+
+      <div class="p-col-12">
         <button pButton type="submit" label="Salvar" class="p-mr-1" [disabled]="f.invalid"></button>
-        <button pButton type="button" label="Nova" class="p-button-info p-ml-1 p-mr-1"
-          (click)="nova(f)"></button>
+        <button pButton type="button" label="Nova" class="p-button-info p-ml-1 p-mr-1" (click)="nova(f)"></button>
         <a routerLink="/pessoas" class="p-ml-1">Voltar para a pesquisa</a>
       </div>
     </div>
