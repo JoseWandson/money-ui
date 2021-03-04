@@ -59,6 +59,13 @@ export class PessoaCadastroComponent implements OnInit {
     this.contato = new Contato();
   }
 
+  confirmarContato(form: NgForm) {
+    this.pessoa.contatos.push(this.clonarContato(this.contato));
+    this.exibindoFormularioContato = false;
+
+    form.reset();
+  }
+
   get editando() {
     return Boolean(this.pessoa.codigo);
   }
@@ -95,6 +102,10 @@ export class PessoaCadastroComponent implements OnInit {
         this.atualizarTituloEdicao();
       })
       .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  private clonarContato(contato: Contato) {
+    return new Contato(contato.codigo, contato.nome, contato.email, contato.telefone);
   }
 
 }
