@@ -74,6 +74,10 @@ export class PessoaCadastroComponent implements OnInit {
     this.contatoIndex = index;
   }
 
+  removerContato(index: number) {
+    this.pessoa.contatos.splice(index, 1);
+  }
+
   get editando() {
     return Boolean(this.pessoa.codigo);
   }

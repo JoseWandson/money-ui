@@ -84,7 +84,7 @@
                       <button pButton icon="pi pi-pencil" type="button" pTooltip="Editar" tooltipPosition="top"
                         class="p-mr-1" (click)="prepararEdicaoContato(contato, rowIndex)"></button>
                       <button pButton icon="pi pi-trash" type="button" pTooltip="Excluir" tooltipPosition="top"
-                        class="p-ml-1"></button>
+                        class="p-ml-1" (click)="removerContato(rowIndex)"></button>
                     </td>
                   </tr>
                 </ng-template>
