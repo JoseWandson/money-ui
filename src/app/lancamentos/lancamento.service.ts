@@ -25,7 +25,7 @@ export class LancamentoService {
     this.lancamentosUrl = `${environment.apiUrl}/lancamentos`;
   }
 
-  pesquisar(filtro: LancamentoFiltro): Promise<any> {
+  async pesquisar(filtro: LancamentoFiltro): Promise<any> {
     let params = new HttpParams();
 
     params = params.set('page', filtro.pagina.toString());
@@ -41,22 +41,20 @@ export class LancamentoService {
       params = params.set('dataVencimentoAte', moment(filtro.dataVencimentoFim).format('YYYY-MM-DD'));
     }
 
-    return this.http.get(`${this.lancamentosUrl}?resumo`, { params })
-      .toPromise()
-      .then(response => {
-        const lancamentos = response['content'];
-        const resultado = {
-          lancamentos,
-          total: response['totalElements']
-        };
-        return resultado;
-      });
+    const response = await this.http.get(`${this.lancamentosUrl}?resumo`, { params })
+      .toPromise();
+    const lancamentos = response['content'];
+    const resultado = {
+      lancamentos,
+      total: response['totalElements']
+    };
+    return resultado;
   }
 
-  excluir(codigo: number): Promise<void> {
-    return this.http.delete(`${this.lancamentosUrl}/${codigo}`)
-      .toPromise()
-      .then(() => null);
+  async excluir(codigo: number): Promise<void> {
+    await this.http.delete(`${this.lancamentosUrl}/${codigo}`)
+      .toPromise();
+    return null;
   }
 
   adicionar(lancamento: Lancamento): Promise<Lancamento> {
@@ -66,31 +64,27 @@ export class LancamentoService {
       .toPromise();
   }
 
-  atualizar(lancamento: Lancamento): Promise<Lancamento> {
+  async atualizar(lancamento: Lancamento): Promise<Lancamento> {
     const codigo = lancamento.codigo;
     delete lancamento.codigo;
 
-    return this.http.put(`${this.lancamentosUrl}/${codigo}`, lancamento)
-      .toPromise()
-      .then(response => {
-        const lancamentoAlterado = response as Lancamento;
-
-        this.converterStringsParaDatas([lancamentoAlterado]);
-
-        return lancamentoAlterado;
-      });
+    const response = await this.http.put(`${this.lancamentosUrl}/${codigo}`, lancamento)
+      .toPromise();
+    const lancamentoAlterado = response as Lancamento;
+    this.converterStringsParaDatas([lancamentoAlterado]);
+    return lancamentoAlterado;
   }
 
-  buscarPorCodigo(codigo: number): Promise<Lancamento> {
-    return this.http.get(`${this.lancamentosUrl}/${codigo}`)
-      .toPromise()
-      .then(response => {
-        const lancamento = response as Lancamento;
+  async buscarPorCodigo(codigo: number): Promise<Lancamento> {
+    const response = await this.http.get(`${this.lancamentosUrl}/${codigo}`)
+      .toPromise();
+    const lancamento = response as Lancamento;
+    this.converterStringsParaDatas([lancamento]);
+    return lancamento;
+  }
 
-        this.converterStringsParaDatas([lancamento]);
-
-        return lancamento;
-      });
+  urlUploadAnexo(): string {
+    return `${this.lancamentosUrl}/anexo`;
   }
 
   private converterStringsParaDatas(lancamentos: Lancamento[]) {

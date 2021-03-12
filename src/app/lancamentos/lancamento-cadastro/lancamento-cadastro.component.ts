@@ -99,6 +99,10 @@ export class LancamentoCadastroComponent implements OnInit {
     return Boolean(this.formulario.get('codigo').value);
   }
 
+  get urlUploadAnexo() {
+    return this.lancamentoService.urlUploadAnexo();
+  }
+
   private carregarCategorias() {
     this.categoriaService.listarTodas()
       .then(categorias => this.categorias = categorias.map((c: Categoria) => ({ label: c.nome, value: c.codigo })))

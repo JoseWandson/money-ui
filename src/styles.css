@@ -66,3 +66,7 @@ body a:hover.p-button {
   background: #0d89ec;
   border-color: #0d89ec;
 }
+
+.p-fluid .p-fileupload .p-button {
+  width: 100%!important;
+}
