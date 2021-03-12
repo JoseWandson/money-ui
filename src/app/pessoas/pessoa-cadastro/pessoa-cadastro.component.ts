@@ -7,7 +7,7 @@ import { MessageService } from 'primeng/api';
 
 import { PessoaService } from '../pessoa.service';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
-import { Contato, Pessoa } from './../../core/model';
+import { Pessoa } from './../../core/model';
 
 @Component({
   selector: 'app-pessoa-cadastro',
@@ -17,9 +17,6 @@ import { Contato, Pessoa } from './../../core/model';
 export class PessoaCadastroComponent implements OnInit {
 
   pessoa = new Pessoa();
-  exibindoFormularioContato = false;
-  contato: Contato;
-  contatoIndex: number;
 
   constructor(
     private pessoaService: PessoaService,
@@ -53,29 +50,6 @@ export class PessoaCadastroComponent implements OnInit {
     setTimeout(() => this.pessoa = new Pessoa(), 1);
 
     this.router.navigate(['/pessoas/nova']);
-  }
-
-  prepararNovoContato() {
-    this.exibindoFormularioContato = true;
-    this.contato = new Contato();
-    this.contatoIndex = this.pessoa.contatos.length;
-  }
-
-  confirmarContato(form: NgForm) {
-    this.pessoa.contatos[this.contatoIndex] = this.clonarContato(this.contato);
-    this.exibindoFormularioContato = false;
-
-    form.reset();
-  }
-
-  prepararEdicaoContato(contato: Contato, index: number) {
-    this.contato = this.clonarContato(contato);
-    this.exibindoFormularioContato = true;
-    this.contatoIndex = index;
-  }
-
-  removerContato(index: number) {
-    this.pessoa.contatos.splice(index, 1);
   }
 
   get editando() {
@@ -114,10 +88,6 @@ export class PessoaCadastroComponent implements OnInit {
         this.atualizarTituloEdicao();
       })
       .catch(erro => this.errorHandler.handle(erro));
-  }
-
-  private clonarContato(contato: Contato) {
-    return new Contato(contato.codigo, contato.nome, contato.email, contato.telefone);
   }
 
 }
