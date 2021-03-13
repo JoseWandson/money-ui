@@ -69,7 +69,9 @@ export class LancamentoCadastroComponent implements OnInit {
         codigo: [null, Validators.required],
         nome: []
       }),
-      observacao: []
+      observacao: [],
+      anexo: [],
+      urlAnexo: []
     });
   }
 
@@ -95,12 +97,29 @@ export class LancamentoCadastroComponent implements OnInit {
     this.router.navigate(['/lancamentos/novo']);
   }
 
+  aoTerminarUploadAnexo(event: any) {
+    const anexo = event.originalEvent.body;
+
+    this.formulario.patchValue({
+      anexo: anexo.nome,
+      urlAnexo: (anexo.url as string).replace('\\', 'https://')
+    });
+  }
+
   get editando() {
     return Boolean(this.formulario.get('codigo').value);
   }
 
   get urlUploadAnexo() {
     return this.lancamentoService.urlUploadAnexo();
+  }
+
+  get nomeAnexo() {
+    const nome = this.formulario.get('anexo').value;
+    if (nome) {
+      return nome.substring(nome.indexOf('_') + 1, nome.length);
+    }
+    return '';
   }
 
   private carregarCategorias() {
