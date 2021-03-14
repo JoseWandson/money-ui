@@ -106,6 +106,10 @@ export class LancamentoCadastroComponent implements OnInit {
     });
   }
 
+  erroUpload() {
+    this.messageService.add({ severity: 'error', detail: 'Erro ao tentar enviar anexo!' });
+  }
+
   get editando() {
     return Boolean(this.formulario.get('codigo').value);
   }
