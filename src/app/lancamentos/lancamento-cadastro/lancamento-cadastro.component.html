@@ -59,8 +59,9 @@
       <div class="p-col-6 p-offset-6 p-md-2 p-md-offset-10 p-fluid" *ngIf="!formulario.get('anexo').value">
         <p-fileUpload name="anexo" mode="basic" auto="true" maxFileSize="100000000" chooseLabel="Anexar"
           accept="image/*, application/*" [url]="urlUploadAnexo" (onUpload)="aoTerminarUploadAnexo($event)"
-          (onError)="erroUpload()">
+          (onError)="erroUpload()" (onBeforeUpload)="antesUploadAnexo()" [hidden]="uploadEmAndamento">
         </p-fileUpload>
+        <p-progressSpinner [style]="{width: '25px', height: '25px'}" [hidden]="!uploadEmAndamento"></p-progressSpinner>
       </div>
 
       <div class="p-col-12 p-fluid" *ngIf="formulario.get('anexo').value" dir="rtl">
