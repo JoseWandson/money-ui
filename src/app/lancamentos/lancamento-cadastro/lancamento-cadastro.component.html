@@ -71,7 +71,8 @@
       </div>
 
       <div class="p-col-12">
-        <button pButton type="submit" label="Salvar" class="p-mr-1" [disabled]="formulario.invalid"></button>
+        <button pButton type="submit" label="Salvar" class="p-mr-1"
+          [disabled]="formulario.invalid || uploadEmAndamento"></button>
         <button pButton type="button" label="Novo" class="p-button-info p-ml-1 p-mr-1" (click)="novo()"></button>
         <a routerLink="/lancamentos" class="p-ml-1">Voltar para a pesquisa</a>
       </div>
