@@ -107,7 +107,7 @@ export class LancamentoCadastroComponent implements OnInit {
 
     this.formulario.patchValue({
       anexo: anexo.nome,
-      urlAnexo: (anexo.url as string).replace('\\', 'https://')
+      urlAnexo: anexo.url
     });
 
     this.uploadEmAndamento = false;
@@ -117,6 +117,13 @@ export class LancamentoCadastroComponent implements OnInit {
     this.messageService.add({ severity: 'error', detail: 'Erro ao tentar enviar anexo!' });
 
     this.uploadEmAndamento = false;
+  }
+
+  removerAnexo() {
+    this.formulario.patchValue({
+      anexo: null,
+      urlAnexo: null
+    });
   }
 
   get editando() {
