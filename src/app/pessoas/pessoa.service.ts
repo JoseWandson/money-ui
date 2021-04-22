@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Pessoa } from './../core/model';
+import { Cidade, Estado, Pessoa } from './../core/model';
 import { environment } from './../../environments/environment';
 
 export class PessoaFiltro {
@@ -16,9 +16,13 @@ export class PessoaFiltro {
 export class PessoaService {
 
   pessoasUrl: string;
+  cidadesUrl: string;
+  estadosUrl: string;
 
   constructor(private http: HttpClient) {
     this.pessoasUrl = `${environment.apiUrl}/pessoas`;
+    this.estadosUrl = `${environment.apiUrl}/estados`;
+    this.cidadesUrl = `${environment.apiUrl}/cidades`;
   }
 
   async pesquisar(filtro: PessoaFiltro): Promise<any> {
@@ -31,18 +35,18 @@ export class PessoaService {
       params = params.set('nome', filtro.nome);
     }
 
-    const response = await this.http.get(this.pessoasUrl, { params }).toPromise();
-    const pessoas = response['content'];
+    const response = await this.http.get<any>(this.pessoasUrl, { params }).toPromise();
+    const pessoas = response.content;
     const resultado = {
       pessoas,
-      total: response['totalElements']
+      total: response.totalElements
     };
     return resultado;
   }
 
   async listarTodas(): Promise<any> {
-    const response = await this.http.get(this.pessoasUrl).toPromise();
-    return response['content'];
+    const response = await this.http.get<any>(this.pessoasUrl).toPromise();
+    return response.content;
   }
 
   async excluir(codigo: number): Promise<void> {
@@ -74,5 +78,16 @@ export class PessoaService {
 
     return this.http.put<Pessoa>(`${this.pessoasUrl}/${codigo}`, pessoa)
       .toPromise();
+  }
+
+  listarEstados(): Promise<Estado[]> {
+    return this.http.get<Estado[]>(this.estadosUrl).toPromise();
+  }
+
+  pesquisarCidades(estado: string): Promise<Cidade[]> {
+    let params = new HttpParams();
+    params = params.set('estado', estado);
+
+    return this.http.get<Cidade[]>(this.cidadesUrl, { params }).toPromise();
   }
 }
