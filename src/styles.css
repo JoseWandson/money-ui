@@ -54,6 +54,10 @@ a:hover, a:focus {
   text-decoration: underline;
 }
 
+a, button {
+  margin-right: .25em!important;
+}
+
 a:hover.p-button, a:focus.p-button {
   text-decoration: none;
 }

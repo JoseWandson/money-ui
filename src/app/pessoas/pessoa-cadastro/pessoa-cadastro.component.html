@@ -67,9 +67,9 @@
       </div>
 
       <div class="p-col-12">
-        <button pButton type="submit" label="Salvar" class="p-mr-1" [disabled]="f.invalid"></button>
-        <button pButton type="button" label="Nova" class="p-button-info p-ml-1 p-mr-1" (click)="nova(f)"></button>
-        <a routerLink="/pessoas" class="p-ml-1">Voltar para a pesquisa</a>
+        <button pButton type="submit" label="Salvar" [disabled]="f.invalid"></button>
+        <button pButton type="button" label="Nova" class="p-button-info" (click)="nova(f)"></button>
+        <a routerLink="/pessoas">Voltar para a pesquisa</a>
       </div>
     </div>
   </form>
