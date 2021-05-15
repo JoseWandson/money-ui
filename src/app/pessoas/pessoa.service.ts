@@ -26,13 +26,15 @@ export class PessoaService {
   }
 
   async pesquisar(filtro: PessoaFiltro): Promise<any> {
-    let params = new HttpParams();
-
-    params = params.set('page', filtro.pagina.toString());
-    params = params.set('size', filtro.itensPorPagina.toString());
+    let params = new HttpParams({
+      fromObject: {
+        page: filtro.pagina.toString(),
+        size: filtro.itensPorPagina.toString()
+      }
+    });
 
     if (filtro.nome) {
-      params = params.set('nome', filtro.nome);
+      params = params.append('nome', filtro.nome);
     }
 
     const response = await this.http.get<any>(this.pessoasUrl, { params }).toPromise();
@@ -85,8 +87,8 @@ export class PessoaService {
   }
 
   pesquisarCidades(estado: number): Promise<Cidade[]> {
-    let params = new HttpParams();
-    params = params.set('estado', estado.toString());
+    const params = new HttpParams()
+      .append('estado', estado.toString());
 
     return this.http.get<Cidade[]>(this.cidadesUrl, { params }).toPromise();
   }

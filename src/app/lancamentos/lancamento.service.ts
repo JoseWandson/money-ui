@@ -26,27 +26,29 @@ export class LancamentoService {
   }
 
   async pesquisar(filtro: LancamentoFiltro): Promise<any> {
-    let params = new HttpParams();
-
-    params = params.set('page', filtro.pagina.toString());
-    params = params.set('size', filtro.itensPorPagina.toString());
+    let params = new HttpParams({
+      fromObject: {
+        page: filtro.pagina.toString(),
+        size: filtro.itensPorPagina.toString()
+      }
+    });
 
     if (filtro.descricao) {
-      params = params.set('descricao', filtro.descricao);
+      params = params.append('descricao', filtro.descricao);
     }
     if (filtro.dataVencimentoInicio) {
-      params = params.set('dataVencimentoDe', moment(filtro.dataVencimentoInicio).format('YYYY-MM-DD'));
+      params = params.append('dataVencimentoDe', moment(filtro.dataVencimentoInicio).format('YYYY-MM-DD'));
     }
     if (filtro.dataVencimentoFim) {
-      params = params.set('dataVencimentoAte', moment(filtro.dataVencimentoFim).format('YYYY-MM-DD'));
+      params = params.append('dataVencimentoAte', moment(filtro.dataVencimentoFim).format('YYYY-MM-DD'));
     }
 
-    const response = await this.http.get(`${this.lancamentosUrl}?resumo`, { params })
+    const response = await this.http.get<any>(`${this.lancamentosUrl}?resumo`, { params })
       .toPromise();
-    const lancamentos = response['content'];
+    const lancamentos = response.content;
     const resultado = {
       lancamentos,
-      total: response['totalElements']
+      total: response.totalElements
     };
     return resultado;
   }
@@ -68,19 +70,17 @@ export class LancamentoService {
     const codigo = lancamento.codigo;
     delete lancamento.codigo;
 
-    const response = await this.http.put(`${this.lancamentosUrl}/${codigo}`, lancamento)
+    const response = await this.http.put<Lancamento>(`${this.lancamentosUrl}/${codigo}`, lancamento)
       .toPromise();
-    const lancamentoAlterado = response as Lancamento;
-    this.converterStringsParaDatas([lancamentoAlterado]);
-    return lancamentoAlterado;
+    this.converterStringsParaDatas([response]);
+    return response;
   }
 
   async buscarPorCodigo(codigo: number): Promise<Lancamento> {
-    const response = await this.http.get(`${this.lancamentosUrl}/${codigo}`)
+    const response = await this.http.get<Lancamento>(`${this.lancamentosUrl}/${codigo}`)
       .toPromise();
-    const lancamento = response as Lancamento;
-    this.converterStringsParaDatas([lancamento]);
-    return lancamento;
+    this.converterStringsParaDatas([response]);
+    return response;
   }
 
   urlUploadAnexo(): string {

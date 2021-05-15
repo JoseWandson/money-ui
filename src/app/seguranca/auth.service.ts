@@ -23,44 +23,44 @@ export class AuthService {
     this.carregarToken();
   }
 
-  login(usuario: string, senha: string): Promise<void> {
+  async login(usuario: string, senha: string): Promise<void> {
     const headers = new HttpHeaders()
       .append('Content-Type', 'application/x-www-form-urlencoded')
       .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
     const body = `username=${usuario}&password=${senha}&grant_type=password`;
 
-    return this.http.post(this.oauthTokenUrl, body, { headers, withCredentials: true })
-      .toPromise()
-      .then(response => this.armazenarToken(response['access_token']))
-      .catch(response => {
-        if (response.status === 400 && response.error.error === 'invalid_grant') {
-          return Promise.reject('Usuário ou senha inválida!');
-        }
-        return Promise.reject(response);
-      });
+    try {
+      const response = await this.http.post<any>(this.oauthTokenUrl, body, { headers, withCredentials: true })
+        .toPromise();
+      return this.armazenarToken(response.access_token);
+    } catch (response) {
+      if (response.status === 400 && response.error.error === 'invalid_grant') {
+        return Promise.reject('Usuário ou senha inválida!');
+      }
+      return await Promise.reject(response);
+    }
   }
 
   temPermissao(permissao: string) {
     return this.jwtPayload && this.jwtPayload.authorities.includes(permissao);
   }
 
-  obterNovoAccessToken(): Promise<void> {
+  async obterNovoAccessToken(): Promise<void> {
     const headers = new HttpHeaders()
       .append('Content-Type', 'application/x-www-form-urlencoded')
       .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
     const body = 'grant_type=refresh_token';
 
-    return this.http.post(this.oauthTokenUrl, body, { headers, withCredentials: true })
-      .toPromise()
-      .then(response => {
-        this.armazenarToken(response['access_token']);
-        console.log('Novo access token criado!');
-        return Promise.resolve(null);
-      })
-      .catch(response => {
-        console.error('Erro ao renovar token,', response);
-        return Promise.resolve(null);
-      });
+    try {
+      const response = await this.http.post<any>(this.oauthTokenUrl, body, { headers, withCredentials: true })
+        .toPromise();
+      this.armazenarToken(response.access_token);
+      console.log('Novo access token criado!');
+      return await Promise.resolve(null);
+    } catch (response) {
+      console.error('Erro ao renovar token,', response);
+      return await Promise.resolve(null);
+    }
   }
 
   isAccessTokenInvalido() {
@@ -83,10 +83,10 @@ export class AuthService {
     this.jwtPayload = null;
   }
 
-  logout() {
-    return this.http.delete(this.tokensRevokeUrl, { withCredentials: true })
-      .toPromise()
-      .then(() => this.limparAccessToken());
+  async logout() {
+    await this.http.delete(this.tokensRevokeUrl, { withCredentials: true })
+      .toPromise();
+    return this.limparAccessToken();
   }
 
   private armazenarToken(token: string) {

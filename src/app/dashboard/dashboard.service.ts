@@ -17,12 +17,12 @@ export class DashboardService {
   }
 
   lancamentosPorCategoria(): Promise<Array<any>> {
-    return this.http.get<any>(`${this.lancamentoUrl}/estatisticas/por-categoria`)
+    return this.http.get<Array<any>>(`${this.lancamentoUrl}/estatisticas/por-categoria`)
       .toPromise();
   }
 
   async lancamentosPorDia(): Promise<Array<any>> {
-    const response = await this.http.get<any>(`${this.lancamentoUrl}/estatisticas/por-dia`)
+    const response = await this.http.get<Array<any>>(`${this.lancamentoUrl}/estatisticas/por-dia`)
       .toPromise();
     this.converterStringParaDatas(response);
     return response;

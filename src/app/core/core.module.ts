@@ -7,6 +7,7 @@ import { Title } from '@angular/platform-browser';
 import { ToastModule } from 'primeng/toast';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { NavbarComponent } from './navbar/navbar.component';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
@@ -45,6 +46,7 @@ registerLocaleData(localePt);
 
     MessageService,
     ConfirmationService,
+    JwtHelperService,
 
     ErrorHandlerService,
     LancamentoService,
