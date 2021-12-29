@@ -11,6 +11,7 @@ import { environment } from './../../environments/environment';
 export class AuthService {
 
   oauthTokenUrl: string;
+  oauthAuthorizeUrl: string;
   tokensRevokeUrl: string;
   jwtPayload: any;
 
@@ -18,27 +19,31 @@ export class AuthService {
     private http: HttpClient,
     private jwtHelper: JwtHelperService
   ) {
-    this.oauthTokenUrl = `${environment.apiUrl}/oauth/token`;
+    this.oauthTokenUrl = `${environment.apiUrl}/oauth2/token`;
+    this.oauthAuthorizeUrl = `${environment.apiUrl}/oauth2/authorize`;
     this.tokensRevokeUrl = `${environment.apiUrl}/tokens/revoke`;
     this.carregarToken();
   }
 
-  async login(usuario: string, senha: string): Promise<void> {
-    const headers = new HttpHeaders()
-      .append('Content-Type', 'application/x-www-form-urlencoded')
-      .append('Authorization', 'Basic YW5ndWxhcjpAbmd1bEByMA==');
-    const body = `username=${usuario}&password=${senha}&grant_type=password`;
+  login() {
+    const state = 'abc';
+    const challengeMethod = 'plain';
+    const codeChallenge = 'desafio123';
+    const redirectURI = encodeURIComponent(environment.oauthCallbackUrl);
+    const clientId = 'angular';
+    const scope = 'read write';
+    const responseType = 'code';
+    const params = [
+      'response_type=' + responseType,
+      'client_id=' + clientId,
+      'scope=' + scope,
+      'code_challenge=' + codeChallenge,
+      'code_challenge_method=' + challengeMethod,
+      'state=' + state,
+      'redirect_uri=' + redirectURI
+    ];
 
-    try {
-      const response = await this.http.post<any>(this.oauthTokenUrl, body, { headers, withCredentials: true })
-        .toPromise();
-      return this.armazenarToken(response.access_token);
-    } catch (response) {
-      if (response.status === 400 && response.error.error === 'invalid_grant') {
-        return Promise.reject('Usuário ou senha inválida!');
-      }
-      return await Promise.reject(response);
-    }
+    window.location.href = this.oauthAuthorizeUrl + '?' + params.join('&');
   }
 
   temPermissao(permissao: string) {

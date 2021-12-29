@@ -1,9 +1,7 @@
+import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { PrimeNGConfig } from 'primeng/api';
-
-import { Constants } from 'src/app/shared/Constants';
 
 @Component({
   selector: 'app-root',
@@ -13,16 +11,14 @@ import { Constants } from 'src/app/shared/Constants';
 export class AppComponent implements OnInit {
 
   constructor(
-    private router: Router,
-    private config: PrimeNGConfig
+    private config: PrimeNGConfig,
+    private translateService: TranslateService
   ) { }
 
   ngOnInit() {
-    this.config.setTranslation(Constants.pt);
-  }
-
-  exibindoNavbar() {
-    return this.router.url !== '/login';
+    this.translateService.setDefaultLang('pt');
+    this.translateService.get('primeng')
+      .subscribe(res => this.config.setTranslation(res));
   }
 
 }

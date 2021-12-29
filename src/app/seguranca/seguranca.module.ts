@@ -8,7 +8,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { JwtModule } from '@auth0/angular-jwt';
 
 import { SegurancaRoutingModule } from './seguranca-routing.module';
-import { LoginFormComponent } from './login-form/login-form.component';
 import { MoneyHttpInterceptor } from './money-http-interceptor';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from 'src/app/seguranca/auth.service';
@@ -19,7 +18,6 @@ export function tokenGetter(): string {
 }
 
 @NgModule({
-  declarations: [LoginFormComponent],
   imports: [
     CommonModule,
     FormsModule,
