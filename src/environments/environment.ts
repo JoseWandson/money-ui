@@ -8,7 +8,7 @@ export const environment = {
 
   tokenAllowedDomains: [new RegExp('localhost:8080')],
   tokenDisallowedRoutes: [new RegExp('\/oauth2\/token')],
-  oauthCallbackUrl: 'https://oidcdebugger.com/debug'
+  oauthCallbackUrl: 'http://local-wandmoney.com:8000/authorized'
 };
 
 /*

@@ -1,7 +1,14 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
-const routes: Routes = [];
+import { AuthorizedComponent } from './authorized/authorized.component';
+
+const routes: Routes = [
+  {
+    path: 'authorized',
+    component: AuthorizedComponent
+  }
+];
 
 @NgModule({
   imports: [

@@ -12,6 +12,7 @@ import { MoneyHttpInterceptor } from './money-http-interceptor';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from 'src/app/seguranca/auth.service';
 import { environment } from './../../environments/environment';
+import { AuthorizedComponent } from './authorized/authorized.component';
 
 export function tokenGetter(): string {
   return localStorage.getItem('token');
@@ -42,6 +43,9 @@ export function tokenGetter(): string {
     },
     AuthGuard,
     AuthService
+  ],
+  declarations: [
+    AuthorizedComponent
   ]
 })
 export class SegurancaModule { }

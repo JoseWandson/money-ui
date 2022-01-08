@@ -4,5 +4,5 @@ export const environment = {
 
   tokenAllowedDomains: [new RegExp('wandsonmoney-api.herokuapp.com')],
   tokenDisallowedRoutes: [new RegExp('\/oauth2\/token')],
-  oauthCallbackUrl: 'https://oidcdebugger.com/debug'
+  oauthCallbackUrl: 'https://wandsonmoney-app.herokuapp.com/authorized'
 };
