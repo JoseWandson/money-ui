@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 import { AuthService } from 'src/app/seguranca/auth.service';
-import { ErrorHandlerService } from '../error-handler.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,14 +12,11 @@ export class NavbarComponent {
   exibindoMenu = false;
 
   constructor(
-    public auth: AuthService,
-    private errorHandler: ErrorHandlerService
+    public auth: AuthService
   ) { }
 
   logout() {
-    this.auth.logout()
-      .then(() => this.auth.login())
-      .catch(erro => this.errorHandler.handle(erro));
+    this.auth.logout();
   }
 
 }

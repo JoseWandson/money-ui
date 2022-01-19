@@ -8,7 +8,8 @@ export const environment = {
 
   tokenAllowedDomains: [new RegExp('localhost:8080')],
   tokenDisallowedRoutes: [new RegExp('\/oauth2\/token')],
-  oauthCallbackUrl: 'http://local-wandmoney.com:8000/authorized'
+  oauthCallbackUrl: 'http://local-wandmoney.com:8000/authorized',
+  logoutRedirectToUrl: 'http://local-wandmoney.com:8000'
 };
 
 /*

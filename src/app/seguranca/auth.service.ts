@@ -13,7 +13,6 @@ export class AuthService {
 
   oauthTokenUrl: string;
   oauthAuthorizeUrl: string;
-  tokensRevokeUrl: string;
   jwtPayload: any;
 
   constructor(
@@ -22,7 +21,6 @@ export class AuthService {
   ) {
     this.oauthTokenUrl = `${environment.apiUrl}/oauth2/token`;
     this.oauthAuthorizeUrl = `${environment.apiUrl}/oauth2/authorize`;
-    this.tokensRevokeUrl = `${environment.apiUrl}/tokens/revoke`;
     this.carregarToken();
   }
 
@@ -51,6 +49,12 @@ export class AuthService {
     ];
 
     window.location.href = this.oauthAuthorizeUrl + '?' + params.join('&');
+  }
+
+  logout() {
+    this.limparAccessToken();
+    localStorage.clear();
+    window.location.href = `${environment.apiUrl}/logout?returnTo=${environment.logoutRedirectToUrl}`;
   }
 
   temPermissao(permissao: string) {
@@ -125,12 +129,6 @@ export class AuthService {
       }
     }
     return false;
-  }
-
-  async logout() {
-    await this.http.delete(this.tokensRevokeUrl, { withCredentials: true })
-      .toPromise();
-    return this.limparAccessToken();
   }
 
   private armazenarToken(token: string) {
