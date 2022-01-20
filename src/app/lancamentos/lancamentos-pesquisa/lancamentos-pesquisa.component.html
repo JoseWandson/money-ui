@@ -1,33 +1,33 @@
 <div class="container">
-  <form autocomplete="off" (ngSubmit)="pesquisar()" class="p-grid">
-    <div class="p-col-12">
+  <form autocomplete="off" (ngSubmit)="pesquisar()" class="grid">
+    <div class="col-12">
       <h1>Lançamentos</h1>
     </div>
 
-    <div class="p-col-12 p-fluid">
+    <div class="col-12 p-fluid">
       <label>Descrição</label>
-      <input pInputText type="text" name="descricao" [(ngModel)]="filtro.descricao" class="p-col-12">
+      <input pInputText type="text" name="descricao" [(ngModel)]="filtro.descricao" class="col-12">
     </div>
 
-    <div class="p-col-12">
+    <div class="col-12">
       <label style="display: block;">Vencimento</label>
       <p-calendar dateFormat="dd/mm/yy" [inputStyle]="{width: '95px'}" name="vencimentoInicio"
         [(ngModel)]="filtro.dataVencimentoInicio" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030">
       </p-calendar>
 
-      <label class="p-ml-1 p-mr-1">até</label>
+      <label class="ml-1 mr-1">até</label>
       <p-calendar dateFormat="dd/mm/yy" [inputStyle]="{width: '95px'}" name="vencimentoFim"
         [(ngModel)]="filtro.dataVencimentoFim" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030">
       </p-calendar>
     </div>
 
-    <div class="p-col-12">
+    <div class="col-12">
       <button pButton type="submit" label="Pesquisar"></button>
     </div>
   </form>
 
-  <div class="p-grid">
-    <div class="p-col-12">
+  <div class="grid">
+    <div class="col-12">
       <p-table [value]="lancamentos" [paginator]="true" [rows]="filtro.itensPorPagina" [lazy]="true"
         [totalRecords]="totalRegistros" (onLazyLoad)="aoMudarPagina($event)" [responsive]="true" #tabela
         styleClass="p-datatable-gridlines">
@@ -69,7 +69,7 @@
       </p-table>
     </div>
 
-    <div class="p-col-12">
+    <div class="col-12">
       <a pButton label="Novo Lançamento" routerLink="/lancamentos/novo"></a>
     </div>
   </div>

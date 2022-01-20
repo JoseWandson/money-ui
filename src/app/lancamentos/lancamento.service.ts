@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import * as moment from 'moment';
+import { firstValueFrom } from 'rxjs';
 
 import { Lancamento } from './../core/model';
 import { environment } from './../../environments/environment';
@@ -43,8 +44,7 @@ export class LancamentoService {
       params = params.append('dataVencimentoAte', moment(filtro.dataVencimentoFim).format('YYYY-MM-DD'));
     }
 
-    const response = await this.http.get<any>(`${this.lancamentosUrl}?resumo`, { params })
-      .toPromise();
+    const response = await firstValueFrom(this.http.get<any>(`${this.lancamentosUrl}?resumo`, { params }));
     const lancamentos = response.content;
     const resultado = {
       lancamentos,
@@ -54,31 +54,27 @@ export class LancamentoService {
   }
 
   async excluir(codigo: number): Promise<void> {
-    await this.http.delete(`${this.lancamentosUrl}/${codigo}`)
-      .toPromise();
+    await firstValueFrom(this.http.delete(`${this.lancamentosUrl}/${codigo}`));
     return null;
   }
 
   adicionar(lancamento: Lancamento): Promise<Lancamento> {
     delete lancamento.codigo;
 
-    return this.http.post<Lancamento>(this.lancamentosUrl, lancamento)
-      .toPromise();
+    return firstValueFrom(this.http.post<Lancamento>(this.lancamentosUrl, lancamento));
   }
 
   async atualizar(lancamento: Lancamento): Promise<Lancamento> {
     const codigo = lancamento.codigo;
     delete lancamento.codigo;
 
-    const response = await this.http.put<Lancamento>(`${this.lancamentosUrl}/${codigo}`, lancamento)
-      .toPromise();
+    const response = await firstValueFrom(this.http.put<Lancamento>(`${this.lancamentosUrl}/${codigo}`, lancamento));
     this.converterStringsParaDatas([response]);
     return response;
   }
 
   async buscarPorCodigo(codigo: number): Promise<Lancamento> {
-    const response = await this.http.get<Lancamento>(`${this.lancamentosUrl}/${codigo}`)
-      .toPromise();
+    const response = await firstValueFrom(this.http.get<Lancamento>(`${this.lancamentosUrl}/${codigo}`));
     this.converterStringsParaDatas([response]);
     return response;
   }

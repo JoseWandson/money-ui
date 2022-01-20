@@ -1,15 +1,15 @@
 <div class="container">
   <form autocomplete="off" (ngSubmit)="salvar()" [formGroup]="formulario">
-    <div class="p-grid">
-      <div class="p-col-12">
+    <div class="grid">
+      <div class="col-12">
         <h1>{{editando ? 'Edição de' : 'Novo'}} Lançamento</h1>
       </div>
 
-      <div class="p-col-12">
+      <div class="col-12">
         <p-selectButton [options]="tipos" name="tipo" formControlName="tipo"></p-selectButton>
       </div>
 
-      <div class="p-col-6 p-md-3 p-fluid">
+      <div class="col-6 md:col-3 p-fluid">
         <label>Vencimento</label>
         <p-calendar dateFormat="dd/mm/yy" name="vencimento" formControlName="dataVencimento">
         </p-calendar>
@@ -17,13 +17,13 @@
           text="Informe uma data de vencimento"></app-message>
       </div>
 
-      <div class="p-col-6 p-md-3 p-fluid">
+      <div class="col-6 md:col-3 p-fluid">
         <label>{{ formulario.get('tipo').value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
         <p-calendar dateFormat="dd/mm/yy" name="dataPagamento" formControlName="dataPagamento">
         </p-calendar>
       </div>
 
-      <div class="p-col-12 p-md-9 p-fluid">
+      <div class="col-12 md:col-9 p-fluid">
         <label>Descrição</label>
         <input pInputText type="text" name="descricao" formControlName="descricao">
         <app-message [control]="formulario.get('descricao')" error="obrigatoriedade" text="Informe uma descrição">
@@ -32,31 +32,31 @@
           text="Mínimo de {{ formulario.get('descricao').errors?.tamanhoMinimo?.tamanho }} caracteres"></app-message>
       </div>
 
-      <div class="p-col-12 p-md-3 p-fluid">
+      <div class="col-12 md:col-3 p-fluid">
         <label>Valor</label>
         <p-inputNumber mode="currency" currency="BRL" name="valor" [min]="0" formControlName="valor" locale="pt-BR">
         </p-inputNumber>
       </div>
 
-      <div class="p-col-12 p-md-6 p-fluid" formGroupName="categoria">
+      <div class="col-12 md:col-6 p-fluid" formGroupName="categoria">
         <label>Categoria</label>
         <p-dropdown [options]="categorias" placeholder="Selecione" name="categoria" formControlName="codigo">
         </p-dropdown>
       </div>
 
-      <div class="p-col-12 p-md-6 p-fluid" formGroupName="pessoa">
+      <div class="col-12 md:col-6 p-fluid" formGroupName="pessoa">
         <label>Pessoa</label>
         <p-dropdown [options]="pessoas" placeholder="Selecione" [filter]=true name="pessoa"
           emptyFilterMessage="Nenhum resultado encontrado" formControlName="codigo">
         </p-dropdown>
       </div>
 
-      <div class="p-col-12 p-fluid">
+      <div class="col-12 p-fluid">
         <label>Observação</label>
         <textarea pInputTextarea rows="3" name="observacao" formControlName="observacao"></textarea>
       </div>
 
-      <div class="p-col-6 p-offset-6 p-md-2 p-md-offset-10 p-fluid" *ngIf="!formulario.get('anexo').value">
+      <div class="col-6 p-offset-6 md:col-2 md:col-offset-10 p-fluid" *ngIf="!formulario.get('anexo').value">
         <p-fileUpload name="anexo" mode="basic" auto="true" maxFileSize="100000000" chooseLabel="Anexar"
           accept="image/*, application/*" [url]="urlUploadAnexo" (onUpload)="aoTerminarUploadAnexo($event)"
           (onError)="erroUpload()" (onBeforeUpload)="antesUploadAnexo()" [hidden]="uploadEmAndamento">
@@ -64,7 +64,7 @@
         <p-progressSpinner [style]="{width: '25px', height: '25px'}" [hidden]="!uploadEmAndamento"></p-progressSpinner>
       </div>
 
-      <div class="p-col-12" *ngIf="formulario.get('anexo').value" dir="rtl">
+      <div class="col-12" *ngIf="formulario.get('anexo').value" dir="rtl">
         <button pButton type="button" class="p-button-danger" icon="pi pi-times" pTooltip="Remover anexo"
           tooltipPosition="top" (click)="removerAnexo()"></button>
 
@@ -73,7 +73,7 @@
         </a>
       </div>
 
-      <div class="p-col-12">
+      <div class="col-12">
         <button pButton type="submit" label="Salvar" [disabled]="formulario.invalid || uploadEmAndamento"></button>
         <button pButton type="button" label="Novo" class="p-button-info" (click)="novo()"></button>
         <a routerLink="/lancamentos">Voltar para a pesquisa</a>

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
 import * as CryptoJS from 'crypto-js';
+import { firstValueFrom } from 'rxjs';
 
 import { environment } from './../../environments/environment';
 
@@ -71,8 +72,7 @@ export class AuthService {
       .append('refresh_token', localStorage.getItem('refreshToken'));
 
     try {
-      const response = await this.http.post<any>(this.oauthTokenUrl, payload, { headers })
-        .toPromise();
+      const response = await firstValueFrom(this.http.post<any>(this.oauthTokenUrl, payload, { headers }));
       this.armazenarToken(response.access_token);
       this.armazenarRefreshToken(response.refresh_token);
       console.log('Novo access token criado!');
@@ -103,8 +103,7 @@ export class AuthService {
       .append('Authorization', 'Basic YW5ndWxhcjpAYW5ndWxAcjA=');
 
     try {
-      const response = await this.http.post<any>(this.oauthTokenUrl, payload, { headers })
-        .toPromise();
+      const response = await firstValueFrom(this.http.post<any>(this.oauthTokenUrl, payload, { headers }));
       this.armazenarToken(response.access_token);
       this.armazenarRefreshToken(response.refresh_token);
       console.log('Novo access token criado!');

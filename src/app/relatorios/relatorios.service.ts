@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import * as moment from 'moment';
+import { firstValueFrom } from 'rxjs';
 
 import { environment } from './../../environments/environment';
 
@@ -21,9 +22,8 @@ export class RelatoriosService {
       .append('inicio', moment(inicio).format('YYYY-MM-DD'))
       .append('fim', moment(fim).format('YYYY-MM-DD'));
 
-    return this.http.get(`${this.lancamentosUrl}/relatorios/por-pessoa`,
-      { params, responseType: 'blob' })
-      .toPromise();
+    return firstValueFrom(this.http.get(`${this.lancamentosUrl}/relatorios/por-pessoa`,
+      { params, responseType: 'blob' }));
   }
 
 }

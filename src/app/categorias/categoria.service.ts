@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { firstValueFrom } from 'rxjs';
+
 import { environment } from './../../environments/environment';
 
 @Injectable({
@@ -15,8 +17,7 @@ export class CategoriaService {
   }
 
   listarTodas(): Promise<any> {
-    return this.http.get(this.categoriasUrl)
-      .toPromise()
+    return firstValueFrom(this.http.get(this.categoriasUrl))
       .then(response => response);
   }
 }

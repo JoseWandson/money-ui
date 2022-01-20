@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import * as moment from 'moment';
+import { firstValueFrom } from 'rxjs';
 
 import { environment } from './../../environments/environment';
 
@@ -17,13 +18,11 @@ export class DashboardService {
   }
 
   lancamentosPorCategoria(): Promise<Array<any>> {
-    return this.http.get<Array<any>>(`${this.lancamentoUrl}/estatisticas/por-categoria`)
-      .toPromise();
+    return firstValueFrom(this.http.get<Array<any>>(`${this.lancamentoUrl}/estatisticas/por-categoria`));
   }
 
   async lancamentosPorDia(): Promise<Array<any>> {
-    const response = await this.http.get<Array<any>>(`${this.lancamentoUrl}/estatisticas/por-dia`)
-      .toPromise();
+    const response = await firstValueFrom(this.http.get<Array<any>>(`${this.lancamentoUrl}/estatisticas/por-dia`));
     this.converterStringParaDatas(response);
     return response;
   }

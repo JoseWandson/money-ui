@@ -1,6 +1,8 @@
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { firstValueFrom } from 'rxjs';
+
 import { Cidade, Estado, Pessoa } from './../core/model';
 import { environment } from './../../environments/environment';
 
@@ -37,7 +39,7 @@ export class PessoaService {
       params = params.append('nome', filtro.nome);
     }
 
-    const response = await this.http.get<any>(this.pessoasUrl, { params }).toPromise();
+    const response = await firstValueFrom(this.http.get<any>(this.pessoasUrl, { params }));
     const pessoas = response.content;
     const resultado = {
       pessoas,
@@ -47,12 +49,12 @@ export class PessoaService {
   }
 
   async listarTodas(): Promise<any> {
-    const response = await this.http.get<any>(this.pessoasUrl).toPromise();
+    const response = await firstValueFrom(this.http.get<any>(this.pessoasUrl));
     return response.content;
   }
 
   async excluir(codigo: number): Promise<void> {
-    await this.http.delete(`${this.pessoasUrl}/${codigo}`).toPromise();
+    await firstValueFrom(this.http.delete(`${this.pessoasUrl}/${codigo}`));
     return null;
   }
 
@@ -60,36 +62,33 @@ export class PessoaService {
     const headers = new HttpHeaders()
       .append('Content-Type', 'application/json');
 
-    await this.http.put(`${this.pessoasUrl}/${codigo}/ativo`, ativo, { headers }).toPromise();
+    await firstValueFrom(this.http.put(`${this.pessoasUrl}/${codigo}/ativo`, ativo, { headers }));
     return null;
   }
 
   adicionar(pessoa: Pessoa): Promise<Pessoa> {
-    return this.http.post<Pessoa>(this.pessoasUrl, pessoa)
-      .toPromise();
+    return firstValueFrom(this.http.post<Pessoa>(this.pessoasUrl, pessoa));
   }
 
   buscarPorCodigo(codigo: number): Promise<Pessoa> {
-    return this.http.get<Pessoa>(`${this.pessoasUrl}/${codigo}`)
-      .toPromise();
+    return firstValueFrom(this.http.get<Pessoa>(`${this.pessoasUrl}/${codigo}`));
   }
 
   atualizar(pessoa: Pessoa): Promise<Pessoa> {
     const codigo = pessoa.codigo;
     delete pessoa.codigo;
 
-    return this.http.put<Pessoa>(`${this.pessoasUrl}/${codigo}`, pessoa)
-      .toPromise();
+    return firstValueFrom(this.http.put<Pessoa>(`${this.pessoasUrl}/${codigo}`, pessoa));
   }
 
   listarEstados(): Promise<Estado[]> {
-    return this.http.get<Estado[]>(this.estadosUrl).toPromise();
+    return firstValueFrom(this.http.get<Estado[]>(this.estadosUrl));
   }
 
   pesquisarCidades(estado: number): Promise<Cidade[]> {
     const params = new HttpParams()
       .append('estado', estado.toString());
 
-    return this.http.get<Cidade[]>(this.cidadesUrl, { params }).toPromise();
+    return firstValueFrom(this.http.get<Cidade[]>(this.cidadesUrl, { params }));
   }
 }
